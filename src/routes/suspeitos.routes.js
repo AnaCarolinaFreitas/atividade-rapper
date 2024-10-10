@@ -126,4 +126,27 @@ suspeitosRoutes.put("/:id", (req, res) => {
   });
 });
 
+// Rota para deletar um planeta
+suspeitosRoutes.delete("/:id", (req, res) => {
+    const { id } = req.params;
+  
+    // Busca um suspeito pelo id no array de suspeitos
+    const celebridade = suspeitos.find((sus) => sus.id == id);
+  
+    // Verifica se o planeta foi encontrado
+    if (!celebridade) {
+      return res
+        .status(404)
+        .json({ message: `celebridade com id ${id} não encontrado!` });
+    }
+  
+    // Remove o planeta do array de planetas
+    suspeitos = suspeitos.filter((sus) => sus.id != id);
+  
+    return res.status(200).json({
+      message: "Suspeito removido com sucesso!",
+      celebridade,
+    });
+  });
+
   export default suspeitosRoutes;
