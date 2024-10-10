@@ -1,0 +1,17 @@
+{
+  "name": "atividaderapper",
+  "version": "1.0.0",
+  "description": "Sistema de cadastro de suspeitos em investigação do FBI",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "SENAI",
+    "Javascript",
+    "node.js",
+    "back-end"
+  ],
+  "author": "Ana Carolina Freitas",
+  "license": "MIT"
+}
