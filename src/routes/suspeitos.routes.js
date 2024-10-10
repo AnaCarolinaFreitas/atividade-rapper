@@ -63,7 +63,23 @@ suspeitosRoutes.post("/", (req, res) => {
       suspeitos.push(novoSuspeito);
     
       return res.status(201).send({message: "Novo suspeito cadastrado", novoSuspeito});
-})
+});
+
+// Rota para buscar um suspeito pelo id
+suspeitosRoutes.get("/:id", (req, res) => {
+    const { id } = req.params;
+  
+    // Busca um suspeito pelo id no array de suspeitos
+    const celebridade = suspeitos.find((sus) => sus.id == id);
+  
+    // Verifica se o suspeito foi encontrado
+    if (!celebridade) {
+      return res.status(404).send({ message: `suspeito com id ${id} não encontrado!` });
+    }
+  
+    return res.status(200).json(celebridade);
+  });
+  
 
 
   export default suspeitosRoutes;
