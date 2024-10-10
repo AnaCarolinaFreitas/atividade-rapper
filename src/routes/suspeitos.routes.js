@@ -37,7 +37,12 @@ suspeitosRoutes.get("/", (req, res) => {
 suspeitosRoutes.post("/", (req, res) => {
     const { nome, idade, descricaoFisica, atividadesSuspeitas } = req.body;
 
-    console.log(Number.isInteger(idade));
+    //Validação idade como núme inteiro
+    if (!Number.isInteger(idade)){
+        return res.status(400).send({
+            message:"A idade precisa ser um número inteiro"
+        })
+    }
   
     // Validação dos campos obrigatórios
     if (!nome || !idade || !atividadesSuspeitas) {
@@ -81,5 +86,44 @@ suspeitosRoutes.get("/:id", (req, res) => {
   });
   
 
+  // Rota para atualizar um suspeito pelo id
+suspeitosRoutes.put("/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome, idade, descricaoFisica, atividadesSuspeitas } = req.body;
+  
+    // Busca um suspeito pelo id no array de suspeitos
+    const celebridade = suspeitos.find((p) => p.id == id);
+
+    //Validação idade como núme inteiro
+    if (!Number.isInteger(idade)){
+        return res.status(400).send({
+            message:"A idade precisa ser um número inteiro"
+        })
+    }
+  
+    // Validação dos campos obrigatórios
+    if (!nome || !idade || !atividadesSuspeitas) {
+      return res.status(400).json({
+        message: "Os campos nome, idade e atividadesSuspeitas são obrigatórios!",
+      });
+    }
+  
+    // Validação de existência de atividadesSuspeitos
+  if (atividadesSuspeitas != "sim" && atividadesSuspeitas != "não") {
+    return res.status(400).send({
+      message: "Digite 'sim' ou 'não'!",
+    });
+  }
+
+  celebridade.nome = nome;
+  celebridade.idade = idade;
+  celebridade.descricaoFisica = descricaoFisica;
+  celebridade.atividadesSuspeitas = atividadesSuspeitas;
+
+  return res.status(200).json({
+    message: "suspeito atualizado com sucesso!",
+    celebridade,
+  });
+});
 
   export default suspeitosRoutes;
