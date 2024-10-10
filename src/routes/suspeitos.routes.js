@@ -37,12 +37,7 @@ suspeitosRoutes.get("/", (req, res) => {
 suspeitosRoutes.post("/", (req, res) => {
     const { nome, idade, descricaoFisica, atividadesSuspeitas } = req.body;
 
-    //Validação idade como núme inteiro
-    if (!Number.isInteger(idade)){
-        return res.status(400).send({
-            message:"A idade precisa ser um número inteiro"
-        })
-    }
+    
   
     // Validação dos campos obrigatórios
     if (!nome || !idade || !atividadesSuspeitas) {
@@ -51,6 +46,13 @@ suspeitosRoutes.post("/", (req, res) => {
       });
     }
   
+    //Validação idade como núme inteiro
+    if (!Number.isInteger(idade)){
+        return res.status(400).send({
+            message:"A idade precisa ser um número inteiro"
+        })
+    }
+    
     // Validação de atividadesSuspeitas
     if (atividadesSuspeitas != "sim" && atividadesSuspeitas != "não") {
       return res.status(400).send({
